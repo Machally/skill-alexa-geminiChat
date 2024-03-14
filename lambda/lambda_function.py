@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-gemini_api_key = "AIzaSyCCReNoRML6viqBKSPJgaLRfa7xYo8aE3o"
+gemini_api_key = "SuaApiKeyAqui"
 # URL do endpoint da API
 url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={}".format(gemini_api_key)
 # Cabeçalhos para a requisição
