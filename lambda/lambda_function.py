@@ -22,9 +22,9 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-gemini_api_key = "SuaApiKeyAqui"
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 # URL do endpoint da API
-url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={}".format(gemini_api_key)
+url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={}".format(GOOGLE_API_KEY)
 # Cabeçalhos para a requisição
 headers = {
     'Content-Type': 'application/json',
@@ -32,6 +32,7 @@ headers = {
 # Dados (payload) para serem enviados na requisição POST
 data = {
     "contents": [{
+        "role":"user",
         "parts": [{
             "text": ""
         }]
@@ -47,7 +48,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        data["contents"][0]["parts"][0]["text"] = "Olá Gemini, você será minha assistente de IA! Responda em Português de forma clara e não seja prolixa. Ok?"
+        data["contents"][0]["parts"][0]["text"] = "Olá! Responda em Português de forma clara e não seja prolixa. Ok?"
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
             response_data = response.json()
@@ -55,7 +56,14 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .get("content", {})
                 .get("parts", [{}])[0]
                 .get("text", "Texto não encontrado"))
-            speak_output = "Olá, sou sua assistente inteligente. Como posso te ajudar?"
+            speak_output = "Olá, sou sua assistente inteligente. " + text + " Como posso te ajudar?"
+            response_text = {
+                "role": "model",
+                "parts": [{
+                    "text": text
+                }]
+            }
+            data["contents"].append(response_text)
         else:
             speak_output = "Erro na requsição"
             
@@ -76,7 +84,14 @@ class ChatIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         query = handler_input.request_envelope.request.intent.slots["query"].value
-        data["contents"][0]["parts"][0]["text"] = query
+        #data["contents"][0]["parts"][0]["text"] = query
+        query_text = {
+                "role": "user",
+                "parts": [{
+                    "text": query
+                }]
+            }
+        data["contents"].append(query_text)
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
             response_data = response.json()
@@ -85,6 +100,13 @@ class ChatIntentHandler(AbstractRequestHandler):
                 .get("parts", [{}])[0]
                 .get("text", "Texto não encontrado"))
             speak_output = text
+            response_text = {
+                "role": "model",
+                "parts": [{
+                    "text": text
+                }]
+            }
+            data["contents"].append(response_text)
         else:
             speak_output = "Não obtive uma resposta para sua solicitação"
 
