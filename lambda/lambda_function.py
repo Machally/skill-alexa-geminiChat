@@ -84,7 +84,6 @@ class ChatIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         query = handler_input.request_envelope.request.intent.slots["query"].value
-        #data["contents"][0]["parts"][0]["text"] = query
         query_text = {
                 "role": "user",
                 "parts": [{
