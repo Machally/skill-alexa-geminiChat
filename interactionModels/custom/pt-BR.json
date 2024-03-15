@@ -25,14 +25,10 @@
               "type": "AMAZON.Person"
             }
           ],
-          "name": "HelloWorldIntent",
+          "name": "ChatIntent",
           "samples": [
             "{query}"
           ]
-        },
-        {
-          "name": "AMAZON.FallbackIntent",
-          "samples": []
         }
       ],
       "types": [],
