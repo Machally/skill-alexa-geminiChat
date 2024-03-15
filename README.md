@@ -4,8 +4,8 @@
 **Visite o cana [Scintilla Hub](https://www.youtube.com/@scintillahub) no YouTube**
 
 ## Requisitos
-* Com uma conta Google gere uma chave de autenticação API site da [Google AI Developer](https://ai.google.dev/). Copie e guarde a chave, elá só será visível no instante de criação.
-* Crie uma conta na [Amazon](https://www.amazon.com/ap/signin?openid.pape.preferred_auth_policies=Singlefactor&clientContext=132-2293245-7926858&openid.pape.max_auth_age=7200000&openid.return_to=https%3A%2F%2Fdeveloper.amazon.com%2Falexa%2Fconsole%2Fask&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=amzn_dante_us&openid.mode=checkid_setup&marketPlaceId=ATVPDKIKX0DER&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&) e realize o login par o Alexa Developer Console.
+* Com uma conta Google gere uma chave de autenticação API site da [Google AI Developer](https://ai.google.dev/). Copie e guarde a chave, elá só será visível no instante da criação.
+* Crie uma conta na [Amazon](https://www.amazon.com/ap/signin?openid.pape.preferred_auth_policies=Singlefactor&clientContext=132-2293245-7926858&openid.pape.max_auth_age=7200000&openid.return_to=https%3A%2F%2Fdeveloper.amazon.com%2Falexa%2Fconsole%2Fask&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=amzn_dante_us&openid.mode=checkid_setup&marketPlaceId=ATVPDKIKX0DER&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&) e realize o login no _Alexa Developer Console_.
 ## Criando a Skill Alexa
 Crie uma Skill Alexa-hosted (Python) na Alexa: (_Create Skill_)
 
