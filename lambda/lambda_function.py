@@ -8,7 +8,8 @@ import logging
 import ask_sdk_core.utils as ask_utils
 import requests
 import json
-
+import os
+from dotenv import load_dotenv
 from ask_sdk_core.skill_builder import SkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
@@ -16,6 +17,7 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
+load_dotenv()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
