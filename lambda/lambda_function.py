@@ -24,7 +24,7 @@ logger.setLevel(logging.INFO)
 
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 # URL do endpoint da API
-url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={}".format(GOOGLE_API_KEY)
+url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key={}".format(GOOGLE_API_KEY)
 # Cabeçalhos para a requisição
 headers = {
     'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        data["contents"][0]["parts"][0]["text"] = "Olá! Responda em Português de forma clara e não seja prolixa. Ok?"
+        data["contents"][0]["parts"][0]["text"] = "Você será minha assistente de I.A. Te daria comandos e iremos interagir conforme lhe orientar e treinar."
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
             response_data = response.json()
@@ -56,7 +56,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .get("content", {})
                 .get("parts", [{}])[0]
                 .get("text", "Texto não encontrado"))
-            speak_output = "Olá, sou sua assistente inteligente. " + text + " Como posso te ajudar?"
+            speak_output = text + " Como posso te ajudar?"
             response_text = {
                 "role": "model",
                 "parts": [{
