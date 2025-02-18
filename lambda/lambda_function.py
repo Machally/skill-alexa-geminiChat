@@ -36,10 +36,10 @@ def should_reset_history(session_attr):
     last_timestamp = session_attr.get("last_interaction_time", 0)
     current_time = time.time()
 
-    # Verificar se é a primeira interação
+    # Se não houver histórico (primeira interação ou após reset)
     if last_timestamp == 0:
         session_attr["last_interaction_time"] = current_time
-        return True
+        return True  # Deverá resetar o histórico
 
     if current_time - last_timestamp >= RESET_TIME:
         session_attr["last_interaction_time"] = current_time  # Atualiza o tempo
@@ -61,7 +61,6 @@ def get_time_of_day():
 def get_saudation(session_attr):
     if should_reset_history(session_attr):
         return "Você será minha assistente de I.A. Te darei comandos e iremos interagir conforme lhe orientar e treinar."
-        
     else: 
         return get_time_of_day()
 
@@ -73,6 +72,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         session_attr = handler_input.attributes_manager.session_attributes
 
+        # Verificar se o histórico deve ser resetado
         if should_reset_history(session_attr):
             session_attr["conversation_data"] = {  
                 "contents": [{
@@ -85,6 +85,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
         data = session_attr["conversation_data"]
 
+        # Requisição para a API
         try:
             response = requests.post(url, json=data, headers=headers)
             response.raise_for_status()  # Levanta uma exceção para status não 200
@@ -126,6 +127,7 @@ class ChatIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         session_attr = handler_input.attributes_manager.session_attributes
 
+        # Verificar se o histórico deve ser resetado
         if should_reset_history(session_attr):
             session_attr["conversation_data"] = {"contents": []}
 
@@ -139,6 +141,7 @@ class ChatIntentHandler(AbstractRequestHandler):
         }
         data["contents"].append(query_text)
 
+        # Requisição para a API
         try:
             response = requests.post(url, json=data, headers=headers)
             response.raise_for_status()  # Levanta uma exceção para status não 200
@@ -183,7 +186,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Até logo!" 
+        speak_output = "Valeu, tamo junto!" 
 
         return (
             handler_input.response_builder
